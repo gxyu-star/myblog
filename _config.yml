@@ -1,13 +1,13 @@
 # Site settings
 title:          海饼干1号
 description:    "这里是海饼干1号的博客."
-url:            https://gxyu-star.github.io/blog/
+url:            https://gxyu-star.github.io/myblog/
 
 # Author
 author:
   name:         Guoxing Yu
   email:        calvinyu2015@gmail.com
-  url:          https://gxyu-star.github.io/blog/
+  url:          https://gxyu-star.github.io/myblog/
 
 # Build settings
 markdown:       kramdown
@@ -35,4 +35,4 @@ related_posts_section:
 # Links to social media
 social:
   email: calvinyu2015@gmail.com
-  github: https://gxyu-star.github.io/blog/
+  github: https://gxyu-star.github.io/myblog/
