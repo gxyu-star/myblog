@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "你好，我是海饼干1号"
+title: "我是海饼干1号"
 author: "gxyu"
 ---
 
