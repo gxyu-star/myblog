@@ -48,6 +48,8 @@ blockquote {
 
   p:last-child {
     margin-bottom: 0;
+    width: 600px;
+    height: 150px;
   }
 
   @media (min-width: 600px) {
