@@ -71,12 +71,10 @@ footer,
   a {
     color: $default-color;
     font-family: $chinese-font;
-    width:600;
-    height:150;
   }
 }
 
-@media (min-width: 300px) {
+@media (min-width: 600px) {
   .nav {
     &-container {
       text-align: left;
@@ -91,9 +89,9 @@ footer,
 }
 
 footer {
-  font-family: $chinese-font;
+  font-family: $sans-serif;
   padding: 2rem 0;
-  text-align: center;
+  text-align: right;
 
   span {
     color: $default-color;
