@@ -12,7 +12,7 @@ $code-color: #bf616a;
 
 // Fonts
 $sans-serif: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, sans-serif;
-$chinese-font: fangsong;
+$chinese-font: fangsong, 'Times New Roman', sans-serif;
 $monospaced: Menlo, Monaco, monospace;
 
 @mixin box-sizing($type: border-box) {
