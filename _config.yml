@@ -12,6 +12,9 @@ author:
 # Build settings
 markdown:       kramdown
 
+kramdown:
+   math_engine: null
+
 # Assets
 sass:
   sass_dir:     _sass

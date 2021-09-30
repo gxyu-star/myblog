@@ -24,4 +24,8 @@
 
   <!-- RSS -->
   {% feed_meta %}
+
+  {% unless page.no_latex %}
+    {% include latex.html %}
+  {% endunless %}
 </head>
