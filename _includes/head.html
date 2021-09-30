@@ -12,10 +12,6 @@
       {{ page.title }} &middot; {{ site.title }}
     {% endif %}
   </title>
-  
-  {% unless page.no_latex %}
-    {% include latex.html %}
-  {% endunless %}
 
   <!-- CSS -->
   <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
