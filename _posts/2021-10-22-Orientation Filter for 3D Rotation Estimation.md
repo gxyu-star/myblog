@@ -49,11 +49,33 @@ Orientation Filter的任务是通过融合陀螺仪/加速度计/磁力计的测
 
    $$^{S}\hat s=[0, sx, sy, sz]$$
 
-   $^{E}\hat d$是预先定义的earth的方向，地磁和重力可以确定一个地球的Global坐标系，$^{E}\hat d$就用来表示这个坐标系的方向。$^{S}\hat s$是传感器的测量值，是外部作用力（磁力或者加速度）在Sensor坐标系下的值。**这个方程表达了将Global的方向转到Sensor坐标系下，求两个方向之间的差值。** 求解旋转的过程，就是不断缩小这个差值。每一步迭代就是在当前旋转的基础上进行一次旋转的迭代。这个差值得到降低。因此优化的过程可以如下面的公式表示：
+   $^{E}\hat d$是预先定义的earth的方向，地磁和重力可以确定一个地球的Global坐标系，$^{E}\hat d$就用来表示这个坐标系的方向。$^{S}\hat s$是传感器的测量值，是外部作用力（磁力或者加速度）在Sensor坐标系下的值。**这个方程表达了将Global的方向转到Sensor坐标系下，求两个方向之间的差值。就是优化过程中的代价函数** 求解旋转的过程，就是不断缩小这个差值。每一步迭代就是在当前旋转的基础上进行一次旋转的迭代。这个差值得到降低。因此优化的过程可以如下面的公式表示：
 
    $$_E^{S}\hat q_{k+1}=_E^{S}\hat q_k-\mu \frac{\bigtriangledown f(_E^{S}\hat q_k,\ ^{E}\hat d,\ ^{S}\hat s)}{\left \Vert \bigtriangledown f(_E^{S}\hat q_k,\ ^{E}\hat d,\ ^{S}\hat s) \right \Vert},\ k=0,1,2...n $$
 
    显然，每一步迭代都会使得旋转四元数向$f$模长降低的方向逼近，即测量值和预测值的方向不断接近。梯度的具体推导如下：
+
+   $$\bigtriangledown f(_E^{S}\hat q_k,\ ^{E}\hat d,\ ^{S}\hat s)=J^T(_E^{S}\hat q_k,\ ^{E}\hat d)f(_E^{S}\hat q_k,\ ^{E}\hat d,\ ^{S}\hat s)$$
+
+   $J^T(_E^{S}\hat q_k,\ ^{E}\hat d)$即代价函数关于$_E^{S}\hat q_k$和$^{E}\hat d$的偏导数组成的Jacobian矩阵。该矩阵和代价函数的展开形式如下：
+
+   $$
+   J^T(_E^{S}\hat q_k,\ ^{E}\hat d)=
+   \begin{bmatrix}
+   2d_yq_w−2d_zq_z & 2d_yq_z+ 2d_zq_w & −4d_xq_z+ 2d_yq_y−2d_zq_x &  −4d_xq_w+ 2d_yq_x+ 2d_zq_y\\
+   −2d_xq_w+ 2d_zq_y & 2d_xq_z−4d_yq_y+ 2d_zq_x & 2d_xq_y+ 2d_zq_w & −2d_xq_x−4d_yq_w+ 2d_zq_z\\
+   2d_xq_z−2d_yq_y & 2d_xq_w−2d_yq_x−4d_zq_y & 2d_xq_x+ 2d_yq_w−4d_zq_z & 2d_xq_y+ 2d_yq_z
+   \end{bmatrix}
+   $$
+
+   $$
+   f(_E^{S}\hat q_k,\ ^{E}\hat d,\ ^{S}\hat s)=
+   \begin{bmatrix}
+   2d_x(1/2−q_z^2−q_w^2) + 2d_y(q_xq_w+q_yq_z)+2d_z(q_yq_w−q_xq_z)−s_x\\
+   2d_x(q_yq_z−q_xq_w) + 2dy(1/2−q_y^2−q_w^2)+2d_z(q_xq_y+q_zq_w)−s_y\\
+   2d_x(q_xq_z+q_yq_w) + 2dy(q_zq_w−q_xq_y)+2dz(1/2−q_y^2−q_z^2)−s_z
+   \end{bmatrix}
+   $$
 
    **...待续...**
 
