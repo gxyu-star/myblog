@@ -5,10 +5,7 @@ author: "gxyu"
 ---
 
 # <center>视觉2D-3D匹配点结合IMU 3DOF解Pose推导</center>
-<center>于国星</center>
-<center>2021-11-19</center>
 
-## 
 
 将IMU的3DOF数据利用起来，与视觉的2D-3D匹配点集耦合，进行6DOF的姿态解算。下面是理论推导过程：
 $$\begin{equation} z_c \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} = \begin{bmatrix} f_x & 0 &c_x \\ 0 & f_y & c_y\\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} R | t \end{bmatrix} \begin{bmatrix} X_i \\ Y_i \\ Z_i \\ 1 \end{bmatrix} \end{equation}$$
