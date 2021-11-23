@@ -4,7 +4,7 @@ title: "Estimate 6Dof Pose from IMU and Vision Matched Points"
 author: "gxyu"
 ---
 
-# <center>视觉2D-3D匹配点结合IMU 3DOF解Pose推导</center>
+### 视觉2D-3D匹配点结合IMU 3DOF解Pose推导过程
 
 
 将IMU的3DOF数据利用起来，与视觉的2D-3D匹配点集耦合，进行6DOF的姿态解算。下面是理论推导过程：
