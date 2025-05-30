@@ -1,16 +1,15 @@
 ---
 layout: post
-title: "Estimate 6Dof Pose from IMU and Vision Matched Points"
+title: "HMD手柄跟踪时如何耦合IMU解算手柄6DOF?"
 author: "gxyu"
 ---
 
-### 视觉2D-3D匹配点结合IMU 3DOF解Pose推导过程
-
+### 推导过程
 
 将IMU的3DOF数据利用起来，与视觉的2D-3D匹配点集耦合，进行6DOF的姿态解算。下面是理论推导过程：
 $$\begin{equation} z_c \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} = \begin{bmatrix} f_x & 0 &c_x \\ 0 & f_y & c_y\\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} R | t \end{bmatrix} \begin{bmatrix} X_i \\ Y_i \\ Z_i \\ 1 \end{bmatrix} \end{equation}$$
 
-其中的旋转矩阵$R$表示Camera到模型的旋转，向量$t$表示模型在Camera坐标系下的位移。为了计算方便将模型的3D点先转到IMU的坐标系下，表示为$\begin{bmatrix} X_i & Y_i & Z_i & 1 \end{bmatrix}^T$。在当前的应用场景中，我们由VIO数据可以得到Camera相对于VIO世界坐标系的旋转$^{wv}R_c$，同时由手柄的3DOF可以得到IMU相对于手柄世界坐标系的旋转$^{wi}R_i$。其中VIO的世界坐标系和IMU的世界坐标系相差一个Yaw方向的旋转，记为$^{wv}R_{wi}$。IMU相对于其世界坐标系的旋转$^{wi}R_i$可以进一步分分解为三个轴的欧拉角的转动，从而得到三个旋转矩阵的分量，如下：
+其中的旋转矩阵$R$表示Camera到模型的旋转，向量$t$表示模型在Camera坐标系下的位移。为了计算方便将模型的3D点先转到IMU的坐标系下，表示为$\begin{bmatrix} X_i & Y_i & Z_i & 1 \end{bmatrix}^T$。在当前的应用场景中，我们由HMD定位数据可以得到Camera相对于VIO世界坐标系的旋转$^{wv}R_c$，同时由手柄的3DOF可以得到IMU相对于手柄世界坐标系的旋转$^{wi}R_i$。其中VIO的世界坐标系和IMU的世界坐标系相差一个Yaw方向的旋转，记为$^{wv}R_{wi}$。IMU相对于其世界坐标系的旋转$^{wi}R_i$可以进一步分分解为三个轴的欧拉角的转动，从而得到三个旋转矩阵的分量，如下：
 $$\begin{equation}^{wi}R_i = ^{wi}R_y * ^yR_p * ^pR_r \end{equation}$$
 
 在IMU的3DOF解算中，由于重力的作用，可以得到相对比较准确的pitch和roll，而yaw的值往往伴随着漂移。因此，三个旋转分量中$^{wi}R_y$是不准确的。将公式$(1)$中的$\begin{bmatrix} R | t \end{bmatrix}$进行展开如下：
